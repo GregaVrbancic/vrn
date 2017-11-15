@@ -5,6 +5,7 @@ INPUT="examples/"            # Place to find input images
 OUTPUT="output/"             # Place to dump raw volumes
 VRN_MODEL="vrn-unguided.t7"  # Reconstruction model
 CUDA_VISIBLE_DEVICES=0       # GPU number
+DEVICE=$1                    # Device should be "gpu" or "cpu"
 
 ######################################################################
 # The rest of the code
@@ -26,7 +27,7 @@ th main.lua -model 2D-FAN-300W.t7 \
    -detectFaces true \
    -mode generate \
    -output ../$INPUT/ \
-   -device gpu \
+   -device $DEVICE \
    -outputFormat txt
 popd > /dev/null
 
@@ -79,7 +80,7 @@ th process.lua \
    --model $VRN_MODEL \
    --input $INPUT/scaled \
    --output $OUTPUT \
-   --device gpu
+   --device $DEVICE
 
 # Visualise the rendered model.
 pushd output > /dev/null
